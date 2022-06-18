@@ -14,8 +14,13 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 
 /**
- * Servlet Filter implementation class KiemTraDangNhapFilter
+ * Kiểm tra người dùng đã đăng nhập hay chưa, muốn
+ * truy cập /thanh-toan hay là xem thông tin cá nhân /ca-nhan 
+ * thì cần đăng nhập trước
+ *
  */
+
+
 public class KiemTraDangNhapFilter extends HttpFilter {
        
     /**

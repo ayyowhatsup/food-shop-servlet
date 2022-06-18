@@ -13,8 +13,8 @@
 <body>
 	<div class="logo-wrapper">
 		<a href="<%=request.getContextPath()%>/trang-chu" class="logo"><i class="fas fa-utensils"></i>Refood</a>
-		<form>
-			<input type="text" name="search" placeholder="Tìm kiếm sản phẩm..." />
+		<form action="san-pham" method="post">
+			<input type="text" name="timkiem" placeholder="Tìm kiếm sản phẩm..." />
 			<button type="submit">
 				<i class="fa fa-search"></i>
 			</button>

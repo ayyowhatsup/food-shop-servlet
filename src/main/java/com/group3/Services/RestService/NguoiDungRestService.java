@@ -37,6 +37,7 @@ public class NguoiDungRestService extends HttpServlet {
 		response.setContentType("application/json");
 		Gson gson = new GsonBuilder()
 				.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+				.setPrettyPrinting()
 				.create();
 		PrintWriter pr = response.getWriter();
 		String str = request.getPathInfo();

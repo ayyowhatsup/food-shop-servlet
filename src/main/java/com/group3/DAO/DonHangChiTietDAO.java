@@ -12,6 +12,10 @@ import com.group3.Model.DonHangChiTiet;
 import com.group3.Model.NguoiDung;
 import com.group3.TienIch.KetNoiCSDL;
 
+/**
+ * Các thao tác với DonHangChiTiet với CSDL
+ * 
+ */
 public class DonHangChiTietDAO implements DAO<DonHangChiTiet> {
 	
 	private Connection conn;

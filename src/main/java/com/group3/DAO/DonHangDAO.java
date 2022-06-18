@@ -9,6 +9,10 @@ import com.group3.Model.DonHangChiTiet;
 import com.group3.Model.NguoiDung;
 import com.group3.TienIch.KetNoiCSDL;
 
+/**
+ * Các thao tác với DonHang với CSDL
+ * 
+ */
 public class DonHangDAO implements DAO<DonHang> {
 	
 	private Connection conn;
@@ -27,7 +31,10 @@ public class DonHangDAO implements DAO<DonHang> {
             Statement sql = conn.createStatement();
             ResultSet rs = sql.executeQuery("select * from DonHang");
             while (rs.next()) {
-                
+                DonHang dh = new DonHang(rs);
+                dh.setKhachHang(new NguoiDungDAO(conn).layQuaMa(dh.getKhachHang().getMaNguoiDung()));
+                dh.setDanhSachVatPham(new DonHangChiTietDAO(conn).layDanhSachVatPhamHoaDonTheoMa(dh.getMaDonHang()));
+                res.add(dh);
             }
 
         } catch (SQLException ex) {

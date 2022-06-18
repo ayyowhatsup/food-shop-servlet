@@ -7,14 +7,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.group3.DAO.DonHangDAO;
 import com.group3.DAO.SanPhamDAO;
 import com.group3.Model.DonHang;
+import com.group3.Model.DonHangChiTiet;
 import com.group3.Model.SanPham;
 
 /**
@@ -38,8 +45,32 @@ public class DonHangRestServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 		Gson gson = new GsonBuilder()
-				.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+				.registerTypeAdapter(DonHang.class, new JsonSerializer<DonHang>() {
+
+					@Override
+					public JsonElement serialize(DonHang arg0, Type arg1, JsonSerializationContext arg2) {
+						JsonObject jsonObject = new JsonObject();
+						jsonObject.addProperty("ma_don_hang", arg0.getMaDonHang());
+						jsonObject.addProperty("thoi_gian_dat_hang", arg0.getThoiGianDatHang().toString());
+						jsonObject.addProperty("thanh_tien", arg0.getThanhTien());
+						jsonObject.addProperty("trang_thai", arg0.getTrangThai());
+						
+						JsonArray danhSachVP = new JsonArray();
+						for(DonHangChiTiet dhct : arg0.getDanhSachVatPham()) {
+							JsonObject vatPham = new JsonObject();
+							vatPham.addProperty("ma_san_pham", dhct.getSanPham().getMaSanPham());
+							vatPham.addProperty("so_luong", dhct.getSoLuong());
+							danhSachVP.add(vatPham);
+						}
+						jsonObject.add("danh_sach_vat_pham", danhSachVP);
+						jsonObject.addProperty("dia_chi_nhan_hang", arg0.getDiaChiNhanHang());
+						return jsonObject;
+					}
+				})
+				.setPrettyPrinting()
 				.create();
+		
+		
 		PrintWriter pr = response.getWriter();
 		String str = request.getPathInfo();
 		if(str == null || str.length()==1) {

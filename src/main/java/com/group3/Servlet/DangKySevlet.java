@@ -45,16 +45,17 @@ public class DangKySevlet extends HttpServlet {
 		String soDienThoai = request.getParameter("dang-ky-sdt");
 		String matKhau = request.getParameter("dang-ky-matkhau");
 		String nhapLaiMatKhau = request.getParameter("dang-ky-matkhau-nhaplai");
+		
+		//Kiểm tra đầu vào
 		if(tenNguoiDung.equals("")||soDienThoai.equals("")||matKhau.equals("")||nhapLaiMatKhau.equals("")) {
 			request.setAttribute("mess", "Vui lòng nhập đầy đủ các trường!");
 			request.getRequestDispatcher("/View/DangKy.jsp").forward(request, response);
 		}else {
-			
-			
 			if(!matKhau.equals(nhapLaiMatKhau)) {
 				request.setAttribute("mess", "Mật khẩu và Nhập lại mật khẩu không giống nhau!");
 				request.getRequestDispatcher("/View/DangKy.jsp").forward(request, response);
 			}else {
+				//Kiểm tra số điện thoại đăng kí đã tồn tại trong hệ thống hay chưa
 				List<NguoiDung> arr = new NguoiDungDAO().layTatCa();
 				NguoiDung nd = new NguoiDung(tenNguoiDung,soDienThoai,MaHoaAES.maHoa(matKhau));
 				boolean check = false;
@@ -68,6 +69,7 @@ public class DangKySevlet extends HttpServlet {
 					request.setAttribute("mess", "Số điện thoại đăng ký đã tồn tại!");
 					request.getRequestDispatcher("/View/DangKy.jsp").forward(request, response);
 				}else {
+					//Đăng kí thành công, tạo mới người dùng
 					new NguoiDungDAO().taoMoi(nd);
 					response.sendRedirect("dang-nhap");
 				}

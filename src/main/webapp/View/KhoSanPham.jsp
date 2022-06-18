@@ -44,6 +44,12 @@
 			<div class="box-container">
 				<c:forEach items="${danhSachSanPham}" var="sanPham">
 					<div class="box">
+						<c:if test="${sanPham.tonKho >0 && sanPham.tonKho<=10}">
+							<div class="tag-so-luong-san-pham">SỐ LƯỢNG CÓ HẠN</div>
+						</c:if>
+						<c:if test="${sanPham.tonKho == 0 }">
+							<div class="tag-so-luong-san-pham">HẾT HÀNG</div>
+						</c:if>
 						<img src="${sanPham.hinhAnh}" alt="">
 						<div class="content">
 							<h3>${sanPham.tenSanPham}</h3>
@@ -53,8 +59,11 @@
 								<fmt:formatNumber value="${sanPham.giaTien}" type="currency" />
 								/1 ${sanPham.donViTinh}
 							</h3>
-							<a href="them-vao-gio-hang?maSanPham=${sanPham.maSanPham}"
+							<c:if test="${sanPham.tonKho > 0 }">
+								<a href="them-vao-gio-hang?maSanPham=${sanPham.maSanPham}"
 								class="btn">Đặt mua</a>
+							</c:if>
+							
 						</div>
 					</div>
 				</c:forEach>

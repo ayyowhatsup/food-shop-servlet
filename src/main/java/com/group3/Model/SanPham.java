@@ -3,6 +3,8 @@ package com.group3.Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.google.gson.annotations.Expose;
+
 public class SanPham {
 	private int maSanPham;
 	private String tenSanPham;

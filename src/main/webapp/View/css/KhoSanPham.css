@@ -91,6 +91,20 @@ section {
     width: 100%;
     object-fit: cover;
 }
+.tag-so-luong-san-pham{
+	position: absolute;
+	left: 0px;
+	top: 15px;
+	width: 60%;
+	background: red;
+	color: white;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	font-size:15px;
+	font-weight: bold;
+	justify-content: center;
+}
 
 .gallery .box-container .box .content {
     position: absolute;

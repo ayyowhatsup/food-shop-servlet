@@ -8,6 +8,10 @@ import com.group3.Model.SanPham;
 import com.group3.Model.TheLoai;
 import com.group3.TienIch.KetNoiCSDL;
 
+/**
+ * Các thao tác với Sản Phẩm với CSDL
+ * 
+ */
 public class SanPhamDAO implements DAO<SanPham> {
 
 	private Connection conn;
@@ -59,8 +63,24 @@ public class SanPhamDAO implements DAO<SanPham> {
 
 	@Override
 	public boolean sua(SanPham t) {
-		// TODO Auto-generated method stub
-		return false;
+		String sql = "UPDATE sanpham "
+				+ "SET tenSanPham = ?, giaTien = ?, mieuTa = ?, hinhAnh = ?, DonViTinh = ?, TonKho = ?, maTheLoai = ? "
+				+ "WHERE maSanPham = " + t.getMaSanPham();
+		
+		try {
+			PreparedStatement pps = conn.prepareStatement(sql);
+			pps.setString(1,t.getTenSanPham());
+			pps.setInt(2, t.getGiaTien());
+			pps.setString(3,t.getMieuTa());
+			pps.setString(4,t.getHinhAnh());
+			pps.setString(5,t.getDonViTinh());
+			pps.setInt(6, t.getTonKho());
+			pps.setInt(7, t.getTheLoai().getMaTheLoai());
+			pps.execute();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override

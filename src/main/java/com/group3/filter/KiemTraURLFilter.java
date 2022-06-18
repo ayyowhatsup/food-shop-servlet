@@ -14,7 +14,8 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 
 /**
- * Servlet Filter implementation class KiemTraURLFilter
+ * Kiểm tra URL có / ở dưới cùng hay không
+ *  có / thì cần xóa /
  */
 public class KiemTraURLFilter extends HttpFilter {
 
@@ -41,7 +42,6 @@ public class KiemTraURLFilter extends HttpFilter {
 		// TODO Auto-generated method stub
 		HttpServletRequest req = (HttpServletRequest) request;
 		String url = req.getRequestURI();
-		System.out.println(url);
 		url = url.replace(req.getContextPath(), "");
 		if (url.endsWith("/")) {
 			while (url.endsWith("/")) {

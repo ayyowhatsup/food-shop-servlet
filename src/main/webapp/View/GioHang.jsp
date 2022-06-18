@@ -22,8 +22,8 @@
 				
 				<c:if test="${gioHang==null || gioHang.danhSachVatPham.size() == 0}">
 					<div class="khong-co-gi">
-					<h3>Giỏ hàng hiện tại đang trống</h3>
-					<a class="nut" href="san-pham">Tiếp tục mua sắm ></a>
+					<h4>Giỏ hàng hiện tại đang trống</h4>
+					<a class="nut-bam" href="san-pham">Tiếp tục mua sắm ></a>
 					</div>
 				</c:if>
 					<c:forEach items="${gioHang.danhSachVatPham}" var="sp">
@@ -39,6 +39,7 @@
 									<fmt:formatNumber value="${sp.sanPham.giaTien}"
 										type="currency" />
 										/1 ${sp.sanPham.donViTinh}
+								, Còn lại ${sp.sanPham.tonKho} 
 								</div>
 
 							</div>
@@ -73,13 +74,14 @@
 						</div>
 						<p class="dieu-khoan">Khi bấm nút "Thanh toán" đồng nghĩa Khách hàng đã hiểu và
 							đồng ý các Điều khoản dịch vụ của Refood.</p>
-						<a class="nut" href="thanh-toan">Thanh toán</a>
-						<a class="nut" href="san-pham">Tiếp tục mua sắm ></a>
+						<a class="nut-bam" href="thanh-toan">Thanh toán</a>
+						<a class="nut-bam" href="san-pham">Tiếp tục mua sắm ></a>
 
 					</div>
 				</c:if>
 
 			</div>
+			<h2 class="thong-bao">${mess}</h2>
 		</div>
 	</div>
 </body>

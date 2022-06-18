@@ -46,17 +46,19 @@ public class DangNhapServlet extends HttpServlet {
 		String soDienThoai = request.getParameter("dang-nhap-sdt");
 		String matKhau = request.getParameter("dang-nhap-mat-khau");
 		
+		//Kiểm tra đầu vào từ người dùng
 		if(soDienThoai.equals("") || matKhau.equals("") ) {
 			request.setAttribute("mess", "Vui lòng điền đầy đủ các trường!");
 			request.getRequestDispatcher("/View/DangNhap.jsp").forward(request, response);
 		}
 		else {
+			//Đăng nhập, kiểm tra tài khoản có tồn tại
 			NguoiDung t = new NguoiDungDAO().dangNhap(soDienThoai, MaHoaAES.maHoa(matKhau));
-			
 			if(t==null) {
 				request.setAttribute("mess", "Đăng nhập không thành công, sai số điện thoại hoặc mật khẩu!");
 				request.getRequestDispatcher("/View/DangNhap.jsp").forward(request, response);
 			}else {
+				//Đăng nhập hợp lệ, lưu thông tin đăng nhập vào session, tạo Cookie duy trì đăng nhập
 				HttpSession session = request.getSession();
 				String t1 = session.getId();
 				Cookie c = new Cookie("JSESSIONID", t1);

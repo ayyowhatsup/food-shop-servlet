@@ -7,6 +7,10 @@ import java.util.List;
 import com.group3.Model.NguoiDung;
 import com.group3.TienIch.KetNoiCSDL;
 
+/**
+ * Các thao tác với Người Dùng với CSDL
+ * 
+ */
 public class NguoiDungDAO implements DAO<NguoiDung> {
 	
 	private Connection conn;

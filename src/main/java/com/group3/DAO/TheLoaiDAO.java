@@ -7,6 +7,10 @@ import com.group3.Model.NguoiDung;
 import com.group3.Model.TheLoai;
 import com.group3.TienIch.KetNoiCSDL;
 
+/**
+ * Các thao tác với các Thể loại với CSDL
+ * 
+ */
 public class TheLoaiDAO implements DAO<TheLoai> {
 
 	private Connection conn;
