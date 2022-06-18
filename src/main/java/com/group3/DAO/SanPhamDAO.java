@@ -109,4 +109,19 @@ public class SanPhamDAO implements DAO<SanPham> {
         }
         return res;
 	}
+	public List<SanPham> timKiemSanPhamTheoTen(String tukhoa) {
+		List<SanPham> danhSachSanPham = new ArrayList();
+		try {
+			Statement sql = conn.createStatement();
+			System.out.println("SELECT * FROM sanpham WHERE tensanpham LIKE '%" + tukhoa + "%'");
+			ResultSet rs = sql.executeQuery("SELECT * FROM sanpham WHERE LOWER(tensanpham) LIKE '%" + tukhoa + "%'");
+			while(rs.next()) {
+				SanPham sp = new SanPham(rs);
+				danhSachSanPham.add(sp);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return danhSachSanPham;
+	}
 }

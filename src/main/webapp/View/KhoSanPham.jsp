@@ -28,19 +28,29 @@
 
 		<h1 class="heading">Sản phẩm</h1>
 		<div class="gallery-wrap">
-			<div class="gallery-nav">
-				<h2>DANH MỤC</h2>
-				<ul class="nav-list">
-					<c:forEach items="${danhSachTheLoai}" var="theLoai">
-						<li
-							class='<c:if test="${theLoai.maTheLoai == mtl}">on-selected-active</c:if>'><i
-							class="fa fa-arrow-circle-right" aria-hidden="true"></i> <a
-							href="san-pham?maTheLoai=${theLoai.maTheLoai}"> <c:out
-									value="${theLoai.tenTheLoai}"></c:out>
-						</a></li>
-					</c:forEach>
-				</ul>
-			</div>
+
+			<c:if test="${tuKhoa!=null}">
+				<h1 class="de-muc-tim-kiem">Kết quả tìm kiếm cho từ khóa '${tuKhoa}'</h1>
+				
+			</c:if>
+			<c:if test="${tuKhoa==null}">
+				<div class="gallery-nav">
+					<ul class="nav-list">
+						<h2>DANH MỤC</h2>
+						<c:forEach items="${danhSachTheLoai}" var="theLoai">
+							<li
+								class='<c:if test="${theLoai.maTheLoai == mtl}">on-selected-active</c:if>'><i
+								class="fa fa-arrow-circle-right" aria-hidden="true"></i> <a
+								href="san-pham?maTheLoai=${theLoai.maTheLoai}"> <c:out
+										value="${theLoai.tenTheLoai}"></c:out>
+							</a></li>
+						</c:forEach>
+					</ul>
+				</div>
+			</c:if>
+
+
+
 			<div class="box-container">
 				<c:forEach items="${danhSachSanPham}" var="sanPham">
 					<div class="box">
@@ -61,9 +71,9 @@
 							</h3>
 							<c:if test="${sanPham.tonKho > 0 }">
 								<a href="them-vao-gio-hang?maSanPham=${sanPham.maSanPham}"
-								class="btn">Đặt mua</a>
+									class="btn">Đặt mua</a>
 							</c:if>
-							
+
 						</div>
 					</div>
 				</c:forEach>

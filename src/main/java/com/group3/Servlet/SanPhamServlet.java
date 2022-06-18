@@ -11,6 +11,7 @@ import com.group3.DAO.TheLoaiDAO;
 import com.group3.Model.SanPham;
 import com.group3.Model.TheLoai;
 import com.group3.TienIch.KetNoiCSDL;
+import com.group3.TienIch.TienIch;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,33 +38,31 @@ public class SanPhamServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Connection conn = KetNoiCSDL.ketNoiPostgreSQL();
-		List<TheLoai> arr = new TheLoaiDAO(conn).layTatCa();
-		
-		String p = request.getParameter("maTheLoai");
-		int mtl=0;
-		if(p==null) {
-			mtl=arr.get(0).getMaTheLoai();
-		}
-		else {
-			mtl = Integer.parseInt(p);
-		}
-		List<SanPham> arr3 = new SanPhamDAO(conn).layTatCaSanPhamTheoMaTheLoai(mtl);
-		request.setAttribute("danhSachSanPham", arr3);
-		request.setAttribute("mtl", mtl);
-		request.setAttribute("danhSachTheLoai", arr);
-		request.getRequestDispatcher("/View/KhoSanPham.jsp").forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Xử lí tìm kiếm
 		String tuKhoa = request.getParameter("timkiem");
-		System.out.println(tuKhoa);
-		if(tuKhoa.equals("")) {
-			doGet(request, response);
+		if(tuKhoa==null || tuKhoa.equals("")) {
+			Connection conn = KetNoiCSDL.ketNoiPostgreSQL();
+			List<TheLoai> arr = new TheLoaiDAO(conn).layTatCa();
+			
+			String p = request.getParameter("maTheLoai");
+			int mtl=0;
+			if(p==null) {
+				mtl=arr.get(0).getMaTheLoai();
+			}
+			else {
+				mtl = Integer.parseInt(p);
+			}
+			List<SanPham> arr3 = new SanPhamDAO(conn).layTatCaSanPhamTheoMaTheLoai(mtl);
+			request.setAttribute("danhSachSanPham", arr3);
+			request.setAttribute("mtl", mtl);
+			request.setAttribute("danhSachTheLoai", arr);
+			request.getRequestDispatcher("/View/KhoSanPham.jsp").forward(request, response);
+		}else {		
+			String tukhoa = TienIch.xuLiTuKhoaTimKiem(tuKhoa);
+			List<SanPham> danhSachSanPham = new SanPhamDAO().timKiemSanPhamTheoTen(tukhoa);
+			
+			request.setAttribute("tuKhoa", tuKhoa);
+			request.setAttribute("danhSachSanPham", danhSachSanPham);
+			request.getRequestDispatcher("/View/KhoSanPham.jsp").forward(request, response);
 		}
 		
 	}

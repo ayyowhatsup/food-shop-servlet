@@ -42,6 +42,10 @@ section {
     list-style-type: none;
     
 }
+.gallery-wrap{
+	display: flex;
+	justify-content: space-between;
+}
 .gallery-nav{
     border-radius: 1rem;
     border: 0.1px solid black;
@@ -171,4 +175,8 @@ section {
 	background-color: brown;
 	color: white;
 
+}
+.de-muc-tim-kiem{
+	font-size: 24px;
+	width: 18%;
 }
