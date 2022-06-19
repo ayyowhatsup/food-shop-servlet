@@ -39,30 +39,31 @@ public class DonHangChiTietDAO implements DAO<DonHangChiTiet> {
 	}
 
 	@Override
-	public boolean taoMoi(DonHangChiTiet t) {
+	public int taoMoi(DonHangChiTiet t) {
 		try {
-            String sql = "insert into DonHangChiTiet(maDonHang,maSanPham,soLuong)\nvalues(?,?,?);";
+            String sql = "insert into DonHangChiTiet(maDonHang,maSanPham,soLuong)\nvalues(?,?,?) RETURNING maDonHangChiTiet";
             PreparedStatement pps = conn.prepareStatement(sql);
             pps.setInt(1,t.getMaDonHang());
             pps.setInt(2,t.getSanPham().getMaSanPham());
             pps.setInt(3, t.getSoLuong());
-            pps.execute();
-            return true;
+            ResultSet rs =  pps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
         } catch (SQLException ex) {
-            return false;
+            return -1;
         }
 	}
 
 	@Override
-	public boolean sua(DonHangChiTiet t) {
+	public void sua(DonHangChiTiet t) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean xoa(DonHangChiTiet t) {
+	public void xoa(DonHangChiTiet t) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 	
 	public List<DonHangChiTiet> layDanhSachVatPhamHoaDonTheoMa(int maHoaDon){

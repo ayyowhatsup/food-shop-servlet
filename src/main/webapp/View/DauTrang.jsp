@@ -22,8 +22,12 @@
 	</div>
 
 	<nav class="navbar">
+	
+		<c:if test="${sessionScope.QTV != null && sessionScope.QTV==1}">
+		<a href="<%=request.getContextPath()%>/trang-chu">Quản lí cửa hàng</a> 
+		</c:if>
 		<a href="<%=request.getContextPath()%>/trang-chu">Trang chủ</a> 
-		<a href="">Về chúng tôi</a> <a
+		<a href="<%=request.getContextPath()%>/api">Về chúng tôi</a> <a
 			href="<%=request.getContextPath()%>/san-pham">Sản phẩm</a>
 
 		<c:if test="${sessionScope.maND == null}">

@@ -136,4 +136,14 @@
     <servlet-name>TheLoaiRestServlet</servlet-name>
     <url-pattern>/api/the-loai/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>VeChungToiServlet</display-name>
+    <servlet-name>VeChungToiServlet</servlet-name>
+    <servlet-class>com.group3.Servlet.VeChungToiServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VeChungToiServlet</servlet-name>
+    <url-pattern>/api</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -40,36 +40,60 @@ public class TheLoaiDAO implements DAO<TheLoai> {
 
 	@Override
 	public TheLoai layQuaMa(int ma) {
-		TheLoai tl = new TheLoai();
+		
 		try {
+			TheLoai tl;
 			String sql = "SELECT * FROM theloai WHERE maTheLoai = ?";
 			PreparedStatement pps = conn.prepareStatement(sql);
 			pps.setInt(1, ma);
 			ResultSet rs = pps.executeQuery();
 			rs.next();
 			tl = new TheLoai(rs);
+			return tl;
 			
-		} catch (SQLException e) {		
+		} catch (SQLException e) {
+			return null;
 		}	
-		return tl;	
+			
 	}
 
 	@Override
-	public boolean taoMoi(TheLoai t) {
-		// TODO Auto-generated method stub
-		return false;
+	public int taoMoi(TheLoai t) {
+		try {
+			String sql = "insert into TheLoai(tenTheLoai) values(?) RETURNING maTheLoai";
+			PreparedStatement pps = conn.prepareStatement(sql);
+			pps.setString(1, t.getTenTheLoai());
+			ResultSet rs = pps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 
 	@Override
-	public boolean sua(TheLoai t) {
-		// TODO Auto-generated method stub
-		return false;
+	public void sua(TheLoai t) {
+		try {
+			String sql = "UPDATE theloai SET tentheloai = ? WHERE matheloai = ?";
+			PreparedStatement pps = conn.prepareStatement(sql);
+			
+			pps.setString(1, t.getTenTheLoai());
+			pps.setInt(2, t.getMaTheLoai());
+			pps.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	@Override
-	public boolean xoa(TheLoai t) {
-		// TODO Auto-generated method stub
-		return false;
+	public void xoa(TheLoai t) {
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute("DELETE FROM theloai WHERE maTheLoai = " + t.getMaTheLoai());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 
 }

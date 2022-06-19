@@ -7,10 +7,10 @@ public interface DAO<T> {
 	
 	T layQuaMa(int ma);
 	
-	boolean taoMoi(T t);
+	int taoMoi(T t);
 	
-	boolean sua(T t);
+	void sua(T t);
 	
-	boolean xoa(T t);
+	void xoa(T t);
 	
 }

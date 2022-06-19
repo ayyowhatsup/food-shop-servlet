@@ -66,6 +66,7 @@ public class DangNhapServlet extends HttpServlet {
 				response.addCookie(c);
 				session.setAttribute("maND", t.getMaNguoiDung());
 				session.setAttribute("tenND", t.getTenNguoiDung());
+				session.setAttribute("QTV", t.getLaQuanTriVien());
 				response.sendRedirect("trang-chu");
 			}
 		}

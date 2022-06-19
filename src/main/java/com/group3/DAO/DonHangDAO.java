@@ -45,8 +45,9 @@ public class DonHangDAO implements DAO<DonHang> {
 
 	@Override
 	public DonHang layQuaMa(int ma) {
-		DonHang dh = new DonHang();
+		
 		try {
+			DonHang dh = new DonHang();
 			String sql = "Select * from DonHang where maDonHang = ?";
 			PreparedStatement pps = conn.prepareStatement(sql);
 			pps.setInt(1, ma);
@@ -55,15 +56,16 @@ public class DonHangDAO implements DAO<DonHang> {
 			dh = new DonHang(rs);
 			List<DonHangChiTiet> arr = new DonHangChiTietDAO(conn).layDanhSachVatPhamHoaDonTheoMa(ma);
 			dh.setDanhSachVatPham(arr);	
+			return dh;
 		} catch (Exception e) {
 			
 		}
 		
-		return dh;
+		return null;
 	}
 
 	@Override
-	public boolean taoMoi(DonHang t) {
+	public int taoMoi(DonHang t) {
 		try {
             String sql = "insert into DonHang(manguoidung,thoigiandathang,thanhtien,trangthai,diachinhanhang)\nvalues(?,?,?,?,?) RETURNING maDonHang";
             PreparedStatement pps = conn.prepareStatement(sql);
@@ -74,31 +76,29 @@ public class DonHangDAO implements DAO<DonHang> {
             pps.setString(5,t.getDiaChiNhanHang());
             ResultSet rs =  pps.executeQuery();
             rs.next();
-            int  maDonHang = rs.getInt(1);
-            
-            
+            int  maDonHang = rs.getInt(1);         
             DonHangChiTietDAO dhctdao = new DonHangChiTietDAO(conn);
             t.setMaDonHang(maDonHang);
             for(DonHangChiTiet dhct : t.getDanhSachVatPham()) {
             	dhct.setMaDonHang(t.getMaDonHang());
             	dhctdao.taoMoi(dhct);
             }
-            return true;
+            return maDonHang;
         } catch (SQLException ex) {
-            return false;
+            return -1;
         }
 	}
 
 	@Override
-	public boolean sua(DonHang t) {
+	public void sua(DonHang t) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean xoa(DonHang t) {
+	public void xoa(DonHang t) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 	
 	public List<DonHang> layThongTinDonHangTheoMaNguoiDung(int maNguoiDung){

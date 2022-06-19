@@ -53,31 +53,32 @@ public class NguoiDungDAO implements DAO<NguoiDung> {
 	}
 
 	@Override
-	public boolean taoMoi(NguoiDung t) {
+	public int taoMoi(NguoiDung t) {
         try {
-            String sql = "insert into NguoiDung(tennguoidung,sodienthoai,matkhaumahoa,laquantrivien)\nvalues(?,?,?,?);";
+            String sql = "insert into NguoiDung(tennguoidung,sodienthoai,matkhaumahoa,laquantrivien)\nvalues(?,?,?,?) RETURNING maNguoiDung";
             PreparedStatement pps = conn.prepareStatement(sql);
             pps.setString(1,t.getTenNguoiDung());
             pps.setString(2,t.getSoDienThoai());
             pps.setString(3, t.getMatKhauMaHoa());
             pps.setInt(4, t.getLaQuanTriVien());   
-            pps.execute();
-            return true;
+            ResultSet rs = pps.executeQuery();
+            rs.next();
+            return rs.getInt(1);
         } catch (SQLException ex) {
-            return false;
+            return -1;
         }
 	}
 
 	@Override
-	public boolean sua(NguoiDung t) {
+	public void sua(NguoiDung t) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean xoa(NguoiDung t) {
+	public void xoa(NguoiDung t) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 	
 	public NguoiDung dangNhap(String soDienThoai, String matKhauDaMaHoa) {

@@ -62,6 +62,7 @@ public class DonHangRestServlet extends HttpServlet {
 							vatPham.addProperty("so_luong", dhct.getSoLuong());
 							danhSachVP.add(vatPham);
 						}
+						jsonObject.addProperty("ma_nguoi_dung", arg0.getKhachHang().getMaNguoiDung());
 						jsonObject.add("danh_sach_vat_pham", danhSachVP);
 						jsonObject.addProperty("dia_chi_nhan_hang", arg0.getDiaChiNhanHang());
 						return jsonObject;
