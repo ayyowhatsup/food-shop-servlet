@@ -46,8 +46,31 @@ public class CapNhatSanPham extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String ten =request.getParameter("tenSanPham");
+		int gia =Integer.parseInt(request.getParameter("giaTien"));
+		String mieuta =request.getParameter("mieuTa");
+		String hinhAnh =request.getParameter("hinhAnh");
+		String donViTinh =request.getParameter("donViTinh");
+		int tonkho =Integer.parseInt(request.getParameter("tonKho"));
+		TheLoai theloai =new TheLoai();
+		theloai.setMaTheLoai(Integer.parseInt(request.getParameter("theloai")));
+		
+		SanPham sp=new SanPham();
+		sp.setMaSanPham(Integer.parseInt(request.getParameter("maSanPham")));
+		sp.setTenSanPham(ten);
+		sp.setDonViTinh(donViTinh);
+		sp.setGiaTien(gia);
+		sp.setHinhAnh(hinhAnh);
+		sp.setMieuTa(mieuta);
+		sp.setTheLoai(theloai);
+		sp.setTonKho(tonkho);
+		
+		SanPhamDAO spd =new SanPhamDAO();
+		spd.sua(sp);
+		response.sendRedirect("qlsanpham");
+	
+		
+		
 	}
 
 }

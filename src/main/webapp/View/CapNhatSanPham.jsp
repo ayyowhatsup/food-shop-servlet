@@ -7,8 +7,9 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<form action="themsanpham" method="post">
+<form action="capnhatsanpham" method="post">
 <c:set var="c" value="${requestScope.sanpham}"/>
+Mã sản phẩm: <input type="text" name="maSanPham" readonly value="${c.maSanPham }"/></br>
             Tên sản phẩm: <input type="text" name="tenSanPham" value="${c.tenSanPham }"/></br> 
             Giá tiền: <input type="text" name="giaTien" value="${c.giaTien }"/></br> 
             Miêu tả: <input type="text" name="mieuTa" value="${c.mieuTa }"/></br> 
