@@ -146,4 +146,44 @@
     <servlet-name>VeChungToiServlet</servlet-name>
     <url-pattern>/api</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>QLSanPham</display-name>
+    <servlet-name>QLSanPham</servlet-name>
+    <servlet-class>com.group3.Servlet.Quanly.QLSanPham</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QLSanPham</servlet-name>
+    <url-pattern>/admin/qlsanpham</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>XoaSanPham</display-name>
+    <servlet-name>XoaSanPham</servlet-name>
+    <servlet-class>com.group3.Servlet.Quanly.XoaSanPham</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>XoaSanPham</servlet-name>
+    <url-pattern>/admin/xoasanpham</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ThemSanPham</display-name>
+    <servlet-name>ThemSanPham</servlet-name>
+    <servlet-class>com.group3.Servlet.Quanly.ThemSanPham</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThemSanPham</servlet-name>
+    <url-pattern>/admin/themsanpham</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CapNhatSanPham</display-name>
+    <servlet-name>CapNhatSanPham</servlet-name>
+    <servlet-class>com.group3.Servlet.Quanly.CapNhatSanPham</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CapNhatSanPham</servlet-name>
+    <url-pattern>/admin/capnhatsanpham</url-pattern>
+  </servlet-mapping>
 </web-app>
