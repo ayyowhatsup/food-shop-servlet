@@ -43,10 +43,8 @@ public class TheLoaiDAO implements DAO<TheLoai> {
 		
 		try {
 			TheLoai tl;
-			String sql = "SELECT * FROM theloai WHERE maTheLoai = ?";
-			PreparedStatement pps = conn.prepareStatement(sql);
-			pps.setInt(1, ma);
-			ResultSet rs = pps.executeQuery();
+			Statement sql=conn.createStatement();
+			ResultSet rs= sql.executeQuery("SELECT * FROM theloai WHERE maTheLoai = "+ma);
 			rs.next();
 			tl = new TheLoai(rs);
 			return tl;
@@ -74,11 +72,11 @@ public class TheLoaiDAO implements DAO<TheLoai> {
 	@Override
 	public void sua(TheLoai t) {
 		try {
-			String sql = "UPDATE theloai SET tentheloai = ? WHERE matheloai = ?";
+			String sql = "UPDATE theloai SET tentheloai = ? WHERE matheloai = "+t.getMaTheLoai();
 			PreparedStatement pps = conn.prepareStatement(sql);
 			
 			pps.setString(1, t.getTenTheLoai());
-			pps.setInt(2, t.getMaTheLoai());
+		
 			pps.execute();
 		} catch (Exception e) {
 			// TODO: handle exception

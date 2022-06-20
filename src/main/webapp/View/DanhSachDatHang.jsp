@@ -8,7 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>${requestScope.khachhang }</h2>
+	<jsp:include page="DauTrangQuanTri.jsp"></jsp:include>
+	<h3>Khách hàng: ${requestScope.khachhang }</h3>
+	<h3>Danh sách đơn hàng</h3>
 		<table >
 			<tr>
 				<th>Mã đơn hàng chi tiet</th>

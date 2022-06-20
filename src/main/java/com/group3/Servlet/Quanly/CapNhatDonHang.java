@@ -6,23 +6,20 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 import com.group3.DAO.DonHangDAO;
-import com.group3.DAO.SanPhamDAO;
 import com.group3.Model.DonHang;
-import com.group3.Model.SanPham;
 
 /**
- * Servlet implementation class QLDonHang
+ * Servlet implementation class CapNhatDonHang
  */
-public class QLDonHang extends HttpServlet {
+public class CapNhatDonHang extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QLDonHang() {
+    public CapNhatDonHang() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +28,19 @@ public class QLDonHang extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DonHangDAO dhd =new DonHangDAO();
-		List<DonHang> list =dhd.layTatCa();
-		request.setAttribute("data", list);
-		request.getRequestDispatcher("/View/QLDonHang.jsp").forward(request, response);
+		int ma =Integer.parseInt(request.getParameter("id"));
+		DonHangDAO dhd=new DonHangDAO();
+		DonHang dh =dhd.layQuaMa(ma);
+		dh.setTrangThai("Đơn hàng đã hoàn thành");
+		dhd.suaTrangThai(dh);
+		response.sendRedirect("qldonhang");
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 	}
 
 }

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 </head>
 <body>
+<jsp:include page="DauTrangQuanTri.jsp"></jsp:include>
 <form action="capnhatsanpham" method="post">
 <c:set var="c" value="${requestScope.sanpham}"/>
 Mã sản phẩm: <input type="text" name="maSanPham" readonly value="${c.maSanPham }"/></br>

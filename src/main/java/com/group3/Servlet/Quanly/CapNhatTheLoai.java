@@ -8,21 +8,21 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import com.group3.DAO.DonHangDAO;
 import com.group3.DAO.SanPhamDAO;
-import com.group3.Model.DonHang;
+import com.group3.DAO.TheLoaiDAO;
 import com.group3.Model.SanPham;
+import com.group3.Model.TheLoai;
 
 /**
- * Servlet implementation class QLDonHang
+ * Servlet implementation class CapNhatTheLoai
  */
-public class QLDonHang extends HttpServlet {
+public class CapNhatTheLoai extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QLDonHang() {
+    public CapNhatTheLoai() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +31,21 @@ public class QLDonHang extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DonHangDAO dhd =new DonHangDAO();
-		List<DonHang> list =dhd.layTatCa();
-		request.setAttribute("data", list);
-		request.getRequestDispatcher("/View/QLDonHang.jsp").forward(request, response);
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int ma=Integer.parseInt(request.getParameter("id"));
+		TheLoaiDAO tld=new TheLoaiDAO();
+		TheLoai tl=tld.layQuaMa(ma);
+		tl.setTenTheLoai(request.getParameter("tenTheLoai"));
+		tld.sua(tl);
+		response.sendRedirect("qltheloai");
+		
 	}
 
 }
