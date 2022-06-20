@@ -71,13 +71,31 @@ public class NguoiDungDAO implements DAO<NguoiDung> {
 
 	@Override
 	public void sua(NguoiDung t) {
-		// TODO Auto-generated method stub
+		String sql = "UPDATE nguoidung "
+				+ "SET tenNguoiDung = ?, soDienThoai = ?, laQuanTriVien = ?"
+				+ "WHERE maNguoiDung = " + t.getMaNguoiDung();
+		
+		try {
+			PreparedStatement pps = conn.prepareStatement(sql);
+			pps.setString(1,t.getTenNguoiDung());
+			pps.setString(2, t.getSoDienThoai());
+			pps.setInt(3,t.getLaQuanTriVien());
+			pps.execute();
+		} catch (SQLException e) {
+			
+		}
 		
 	}
 
 	@Override
 	public void xoa(NguoiDung t) {
-		// TODO Auto-generated method stub
+		try {
+			Statement stmt = conn.createStatement();
+			stmt.execute("Delete from NguoiDung where maNguoiDung = " + t.getMaNguoiDung());
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		
 		
 	}
 	
