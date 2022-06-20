@@ -2,6 +2,7 @@ package com.group3.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.group3.Model.DonHang;
@@ -69,6 +70,7 @@ public class DonHangDAO implements DAO<DonHang> {
 	@Override
 	public int taoMoi(DonHang t) {
 		try {
+			
             String sql = "insert into DonHang(manguoidung,thoigiandathang,thanhtien,trangthai,diachinhanhang)\nvalues(?,?,?,?,?) RETURNING maDonHang";
             PreparedStatement pps = conn.prepareStatement(sql);
             pps.setInt(1,t.getKhachHang().getMaNguoiDung());
@@ -93,13 +95,37 @@ public class DonHangDAO implements DAO<DonHang> {
 
 	@Override
 	public void sua(DonHang t) {
-		// TODO Auto-generated method stub
+
+		
+		
 		
 	}
+public void suaTrangThai(DonHang t) {
+
+		
+		String sql = "UPDATE donhang "
+				+ "set trangThai= ? "
+				+ "WHERE maDonHang = " + t.getMaDonHang();
+		
+		try {
+			PreparedStatement pps = conn.prepareStatement(sql);
+			pps.setString(1,t.getTrangThai());
+			pps.execute();
+		} catch (SQLException e) {
+			
+		}
+		
+	}
+	
 
 	@Override
 	public void xoa(DonHang t) {
-		// TODO Auto-generated method stub
+		try {
+			Statement stmt=conn.createStatement();
+		stmt.executeQuery("delete from donhang where maDonHang = "+t.getMaDonHang());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 	}
 	

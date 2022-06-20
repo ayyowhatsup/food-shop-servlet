@@ -5,11 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title></title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/View/css/Them.css">
 </head>
 <body>
+<jsp:include page="DauTrangQuanTri.jsp"></jsp:include>
 <form action="themsanpham" method="post">
             <h3>Thêm sản phẩm</h3>
             <label>Tên sản phẩm: </label><input type="text" name="tenSanPham"/></br> 
@@ -23,7 +24,7 @@
             		<option value="${c.maTheLoai }">${c.tenTheLoai }</option>
             		</c:forEach>
             </select>
-            <input type="submit" value="SAVE"/>
+            <input type="submit" value="Lưu"/>
         </form>
 </body>
 </html>
