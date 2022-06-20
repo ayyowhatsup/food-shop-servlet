@@ -1,8 +1,10 @@
 package com.group3.filter;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.net.http.HttpRequest;
@@ -40,18 +42,33 @@ public class KiemTraURLFilter extends HttpFilter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
+		
 		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
+		Cookie[] cookies = req.getCookies();
+		HttpSession session = req.getSession();
+		if(cookies != null) {
+			for(int i =0;i < cookies.length;i++) {
+				Cookie c = cookies[i];
+				if(c.getValue().equals(session.getId()) && c.getMaxAge()<0) {
+						cookies[i].setMaxAge(24*60*60*30);
+						resp.addCookie(cookies[i]);
+						break;
+				}
+			}
+		}
+		
 		String url = req.getRequestURI();
 		url = url.replace(req.getContextPath(), "");
 		if (url.endsWith("/")) {
 			while (url.endsWith("/")) {
 				url = url.substring(0, url.length() - 1);
 			}
-			request.getRequestDispatcher(url).forward(request, response);
+			request.getRequestDispatcher(url).forward(req, resp);
 		}
 		
 		else {
-			chain.doFilter(request, response);
+			chain.doFilter(req, resp);
 		}
 	}
 
