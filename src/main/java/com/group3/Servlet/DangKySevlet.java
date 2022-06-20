@@ -50,7 +50,11 @@ public class DangKySevlet extends HttpServlet {
 		if(tenNguoiDung.equals("")||soDienThoai.equals("")||matKhau.equals("")||nhapLaiMatKhau.equals("")) {
 			request.setAttribute("mess", "Vui lòng nhập đầy đủ các trường!");
 			request.getRequestDispatcher("/View/DangKy.jsp").forward(request, response);
-		}else {
+		} else if (soDienThoai.length() !=10 || !soDienThoai.matches("[0-9]+")) {
+			request.setAttribute("mess", "Số điện thoại không đúng!");
+			request.getRequestDispatcher("/View/DangKy.jsp").forward(request, response);
+		} 
+		else {
 			if(!matKhau.equals(nhapLaiMatKhau)) {
 				request.setAttribute("mess", "Mật khẩu và Nhập lại mật khẩu không giống nhau!");
 				request.getRequestDispatcher("/View/DangKy.jsp").forward(request, response);
