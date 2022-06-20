@@ -54,6 +54,8 @@ public class DonHangDAO implements DAO<DonHang> {
 			ResultSet rs =  pps.executeQuery();
 			rs.next();
 			dh = new DonHang(rs);
+			NguoiDung nd =new NguoiDungDAO(conn).layQuaMa(dh.getKhachHang().getMaNguoiDung());
+			dh.setKhachHang(nd);
 			List<DonHangChiTiet> arr = new DonHangChiTietDAO(conn).layDanhSachVatPhamHoaDonTheoMa(ma);
 			dh.setDanhSachVatPham(arr);	
 			return dh;
