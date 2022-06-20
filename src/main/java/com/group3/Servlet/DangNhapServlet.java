@@ -58,12 +58,8 @@ public class DangNhapServlet extends HttpServlet {
 				request.setAttribute("mess", "Đăng nhập không thành công, sai số điện thoại hoặc mật khẩu!");
 				request.getRequestDispatcher("/View/DangNhap.jsp").forward(request, response);
 			}else {
-				//Đăng nhập hợp lệ, lưu thông tin đăng nhập vào session, tạo Cookie duy trì đăng nhập
+				//Đăng nhập hợp lệ, lưu thông tin đăng nhập vào session
 				HttpSession session = request.getSession();
-				String t1 = session.getId();
-				Cookie c = new Cookie("JSESSIONID", t1);
-				c.setMaxAge(108000);
-				response.addCookie(c);
 				session.setAttribute("maND", t.getMaNguoiDung());
 				session.setAttribute("tenND", t.getTenNguoiDung());
 				session.setAttribute("QTV", t.getLaQuanTriVien());
