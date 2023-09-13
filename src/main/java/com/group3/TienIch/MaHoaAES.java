@@ -6,7 +6,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class MaHoaAES {
 	
-	private static String MAT_KHAU = "ZzZzZddllhhZzZzZ";
+	private static String MAT_KHAU = System.getenv("AES_SECRET_KEY");
 	private static SecretKeySpec skeySpec;
 
 	public static String maHoa(String vanBan) {
